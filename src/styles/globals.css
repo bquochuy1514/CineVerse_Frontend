@@ -1,1 +1,115 @@
 @import 'tailwindcss';
+
+/* Thanh cuộn theme Cineverse - Cinema vibes */
+::-webkit-scrollbar {
+	width: 14px;
+	height: 14px;
+}
+
+::-webkit-scrollbar-track {
+	background: linear-gradient(180deg, #0f0c29 0%, #1a1a2e 50%, #16213e 100%);
+	border-radius: 10px;
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(
+		135deg,
+		#667eea 0%,
+		#764ba2 25%,
+		#f093fb 50%,
+		#4facfe 75%,
+		#00f2fe 100%
+	);
+	background-size: 200% 200%;
+	border-radius: 10px;
+	border: 2px solid rgba(15, 12, 41, 0.8);
+	box-shadow: 0 0 10px rgba(102, 126, 234, 0.5),
+		inset 0 0 10px rgba(255, 255, 255, 0.1);
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	animation: gradient-shift 3s ease infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(
+		135deg,
+		#f093fb 0%,
+		#667eea 25%,
+		#4facfe 50%,
+		#00f2fe 75%,
+		#667eea 100%
+	);
+	background-size: 200% 200%;
+	transform: scaleX(1.2);
+	border: 3px solid rgba(102, 126, 234, 0.6);
+	box-shadow: 0 0 20px rgba(102, 126, 234, 0.8),
+		0 0 30px rgba(79, 172, 254, 0.4),
+		inset 0 0 15px rgba(255, 255, 255, 0.2);
+	cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:active {
+	background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #667eea 100%);
+	transform: scaleX(1.15);
+	box-shadow: 0 0 25px rgba(0, 242, 254, 0.9),
+		inset 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Animation cho gradient */
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Firefox support */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #667eea #0f0c29;
+}
+
+/* Variant cho section tối hơn */
+.dark-scrollbar::-webkit-scrollbar-track {
+	background: linear-gradient(180deg, #000000 0%, #0f0c29 100%);
+}
+
+/* Variant cho popup/modal - Neon style */
+.modal-scrollbar::-webkit-scrollbar {
+	width: 10px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+	background: linear-gradient(
+		180deg,
+		rgba(102, 126, 234, 0.8) 0%,
+		rgba(79, 172, 254, 0.8) 100%
+	);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(
+		180deg,
+		rgba(102, 126, 234, 1) 0%,
+		rgba(79, 172, 254, 1) 100%
+	);
+	box-shadow: 0 0 15px rgba(102, 126, 234, 0.8),
+		0 0 25px rgba(79, 172, 254, 0.6);
+}
+
+/* Scrollbar cho container sáng hơn */
+.light-section::-webkit-scrollbar-track {
+	background: linear-gradient(180deg, #1e1e2e 0%, #2a2a3e 100%);
+}
+
+/* Thêm glow effect khi scroll */
+::-webkit-scrollbar-corner {
+	background: #0f0c29;
+}
