@@ -1,4 +1,9 @@
-export default function AuthHeader({ title, content1, content2 }) {
+export default function AuthHeader({
+	title,
+	content1,
+	content2,
+	showCineverse = true,
+}) {
 	return (
 		<div className="text-center mb-12">
 			<div className="relative inline-block mb-4">
@@ -10,10 +15,11 @@ export default function AuthHeader({ title, content1, content2 }) {
 
 			<p className="text-gray-300 text-lg font-light tracking-wide">
 				{content1} {/* Khám phá vũ trụ điện ảnh cùng{' '} */}
-				<span className="font-semibold text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">
-					Cineverse
-				</span>
-				{' — '}
+				{showCineverse && (
+					<span className="font-semibold text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">
+						Cineverse {' — '}
+					</span>
+				)}
 				{content2}
 				{/* — nơi cảm xúc và đam mê điện ảnh hòa quyện */}
 			</p>

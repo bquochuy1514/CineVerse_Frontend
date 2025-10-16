@@ -1,11 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { FiMail, FiLock, FiUser, FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser } from 'react-icons/fi';
 import ShowPasswordButton from '../../shared/ShowPasswordButton';
 import { registerUser } from '@/utils/api';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import LoadingIcon from '../../shared/LoadingIcon';
 
 export default function RegisterFields() {
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [focusedField, setFocusedField] = useState(null);
@@ -42,7 +46,15 @@ export default function RegisterFields() {
 		try {
 			const result = await registerUser(formData);
 			console.log('API response success: ', result);
-			alert(result.message);
+			// toast.success(result.message);
+			toast.success(
+				'Đăng ký thành công! Đang chuyển đến trang xác thực...'
+			);
+
+			// Hoặc redirect sau 1.5s
+			setTimeout(() => {
+				router.push(`/verify-account?email=${formData.email}`);
+			}, 2000);
 		} catch (error) {
 			console.log('API response error: ', error);
 
@@ -55,7 +67,7 @@ export default function RegisterFields() {
 					});
 					setErrors(errorObj);
 				} else {
-					alert(apiError.message);
+					toast.error(apiError.message);
 				}
 			}
 		} finally {
@@ -90,7 +102,7 @@ export default function RegisterFields() {
 						onChange={handleChange}
 						onFocus={() => setFocusedField('fullName')}
 						onBlur={() => setFocusedField(null)}
-						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
+						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
 						placeholder="Nguyễn Văn A"
 					/>
 				</div>
@@ -126,7 +138,7 @@ export default function RegisterFields() {
 						onChange={handleChange}
 						onFocus={() => setFocusedField('email')}
 						onBlur={() => setFocusedField(null)}
-						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
+						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
 						placeholder="example@email.com"
 					/>
 				</div>
@@ -162,7 +174,7 @@ export default function RegisterFields() {
 						onChange={handleChange}
 						onFocus={() => setFocusedField('password')}
 						onBlur={() => setFocusedField(null)}
-						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-12 py-3.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
+						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
 						placeholder="••••••••"
 					/>
 					<ShowPasswordButton
@@ -202,7 +214,7 @@ export default function RegisterFields() {
 						onChange={handleChange}
 						onFocus={() => setFocusedField('confirmPassword')}
 						onBlur={() => setFocusedField(null)}
-						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-12 py-3.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
+						className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-700 text-white rounded-xl pl-12 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-gray-600 placeholder:text-gray-500 relative z-0"
 						placeholder="••••••••"
 					/>
 					<ShowPasswordButton
@@ -223,14 +235,18 @@ export default function RegisterFields() {
 			<button
 				type="submit"
 				disabled={isLoading}
-				className="w-full relative group overflow-hidden bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 text-white font-bold py-4 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 mt-4 active:scale-[0.98]"
+				className="w-full relative group overflow-hidden cursor-pointer bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 text-white font-bold py-3 px-3 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 mt-4 active:scale-[0.98]"
 			>
 				<div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 				<div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 					<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 				</div>
 				<span className="relative z-10 text-lg">
-					{isLoading ? 'Đang đăng ký...' : 'Đăng ký'}
+					{isLoading ? (
+						<LoadingIcon text="Đang đăng ký..." />
+					) : (
+						'Đăng ký'
+					)}
 				</span>
 			</button>
 		</form>

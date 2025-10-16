@@ -6,10 +6,13 @@ import Divider from '../../shared/Divider';
 import AuthRedirect from '../../shared/AuthRedirect';
 import RegisterFields from './RegisterFields';
 import AuthHeader from '../../shared/AuthHeader';
+import HomeButton from '../../../shared/HomeButton';
 
 export default function RegisterForm() {
 	return (
-		<div className="w-full max-w-md mx-auto">
+		<div className="w-full max-w-md mx-auto py-2">
+			<HomeButton />
+
 			{/* Header */}
 			<AuthHeader
 				title="Đăng ký tài khoản"
@@ -28,7 +31,7 @@ export default function RegisterForm() {
 
 			{/* Login Link */}
 			<AuthRedirect
-				text="Đã có tài khoản?"
+				text="Bạn đã có tài khoản?"
 				linkText="Đăng nhập ngay"
 				href="/login"
 			/>
